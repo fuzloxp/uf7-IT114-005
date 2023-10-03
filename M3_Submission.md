@@ -1,0 +1,36 @@
+<table><tr><td> <em>Assignment: </em> IT114 - Number Guesser</td></tr>
+<tr><td> <em>Student: </em> Fuzail Shahzad (uf7)</td></tr>
+<tr><td> <em>Generated: </em> 10/2/2023 11:17:23 PM</td></tr>
+<tr><td> <em>Grading Link: </em> <a rel="noreferrer noopener" href="https://learn.ethereallab.app/homework/IT114-005-F23/it114-number-guesser/grade/uf7" target="_blank">Grading</a></td></tr></table>
+<table><tr><td> <em>Instructions: </em> <ol><li>Create the below branch name</li><li>Implement the NumberGuess4 example from the lesson/slides</li><ol><li><a href="https://gist.github.com/MattToegel/aced06400c812f13ad030db9518b399f">https://gist.github.com/MattToegel/aced06400c812f13ad030db9518b399f</a><br></li></ol><li>Add/commit the files as-is from the lesson material (this is the base template)</li><li>Pick two (2) of the following options to implement</li><ol><li>Display higher or lower as a hint after a wrong guess</li><li>Implement anti-data tampering of the save file data (reject user direct edits)</li><li>Add a difficulty selector that adjusts the max strikes per level</li><li>Display a cold, warm, hot indicator based on how close to the correct value the guess is (example, 10 numbers away is cold, 5 numbers away is warm, 2 numbers away is hot; adjust these per your preference)</li><li>Add a hint command that can be used once per level and only after 2 strikes have been used that reduces the range around the correct number (i.e., number is 5 and range is initially 1-15, new range could be 3-8 as a hint)</li><li>Implement separate save files based on a "What's your name?" prompt at the start of the game</li></ol><li>Fill in the below deliverables</li><li>Create an m3_submission.md file and fill in the markdown from this tool when you're done</li><li>Git add/commit/push your changes to the HW branch</li><li>Create a pull request to main</li><li>Complete the pull request</li><li>Grab the link to the m3_submission.md from the main branch and submit that direct link to github</li></ol></td></tr></table>
+<table><tr><td> <em>Deliverable 1: </em> Implementation 1 (one of the picked items) </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://user-images.githubusercontent.com/54863474/211707773-e6aef7cb-d5b2-4053-bbb1-b09fc609041e.png"></td></tr>
+<tr><td><table><tr><td> <em>Sub-Task 1: </em> Two Screenshots: Add a screenshot demonstrating the feature during runtime; Add a screenshot (or so) of the snippets of code that implement the feature</td></tr>
+<tr><td><table><tr><td><img width="768px" src="https://firebasestorage.googleapis.com/v0/b/learn-e1de9.appspot.com/o/assignments%2Fuf7%2F2023-10-03T02.36.18image.png.webp?alt=media&token=396072ca-bcd5-4ddb-b153-2402ac62ee00"/></td></tr>
+<tr><td> <em>Caption:</em> <p>the code showing the &quot;Display higher or lower as a hint after a<br>wrong guess&quot; option<br></p>
+</td></tr>
+<tr><td><img width="768px" src="https://firebasestorage.googleapis.com/v0/b/learn-e1de9.appspot.com/o/assignments%2Fuf7%2F2023-10-03T02.45.17image.png.webp?alt=media&token=726b2a26-9cce-465a-8a22-4125196310c7"/></td></tr>
+<tr><td> <em>Caption:</em> <p>the output showing the phrases &quot;The answer is a lower number :D&quot; and<br>&quot;The answer is a higher number :D&quot;.<br></p>
+</td></tr>
+</table></td></tr>
+<tr><td> <em>Sub-Task 2: </em> Briefly explain the logic behind your implementation</td></tr>
+<tr><td> <em>Response:</em> <p>The method giveHint first declares a variable called hint that is passed through<br>an if and an else if statement. The first if statement checks if<br>the guess is lower than the answer. If it is then it sets<br>the hint variable equal to&nbsp; &quot;The answer is a lower number :D&quot;. The<br>second else if statement checks if the guess is higher than the answer.<br>If it is then it sets the hint variable equal to&nbsp;&quot;The answer is<br>a higher number :D&quot;. Then the last part of the method is a<br>print statement that prints the final value of hint.<br></p><br></td></tr>
+</table></td></tr>
+<table><tr><td> <em>Deliverable 2: </em> Implementation 2 (one of the picked items) </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://user-images.githubusercontent.com/54863474/211707773-e6aef7cb-d5b2-4053-bbb1-b09fc609041e.png"></td></tr>
+<tr><td><table><tr><td> <em>Sub-Task 1: </em> Two Screenshots: Add a screenshot demonstrating the feature during runtime; Add a screenshot (or so) of the snippets of code that implement the feature</td></tr>
+<tr><td><table><tr><td><img width="768px" src="https://firebasestorage.googleapis.com/v0/b/learn-e1de9.appspot.com/o/assignments%2Fuf7%2F2023-10-03T02.54.04image.png.webp?alt=media&token=31a5ebd3-96a1-4f25-82c1-383dcde1f208"/></td></tr>
+<tr><td> <em>Caption:</em> <p>the code relevant to the option &quot;Display a cold, warm, hot indicator based<br>on how close to the correct value the guess is (example, 10 numbers<br>away is cold, 5 numbers away is warm, 2 numbers away is hot;<br>adjust these per your preference)&quot;.<br></p>
+</td></tr>
+<tr><td><img width="768px" src="https://firebasestorage.googleapis.com/v0/b/learn-e1de9.appspot.com/o/assignments%2Fuf7%2F2023-10-03T02.55.55image.png.webp?alt=media&token=5cc2622b-07b2-43f6-bc09-01d98f290e36"/></td></tr>
+<tr><td> <em>Caption:</em> <p>the output shows what values lead to freezing, cold, warm, and hot respectively<br></p>
+</td></tr>
+</table></td></tr>
+<tr><td> <em>Sub-Task 2: </em> Briefly explain the logic behind your implementation</td></tr>
+<tr><td> <em>Response:</em> <p>This method is called tempHint. It declares a variable called tempHint. It goes<br>through a if statement and multiple else if statements. The statements check how<br>far the guess is from the answer. If the guess is one greater<br>than the number then it outputs warm. If the guess is two or<br>more greater than the number then it outputs hot. If the guess is<br>one less than the number then it outputs cold. If the guess is<br>two or more less than the number then it outputs freezing.<br></p><br></td></tr>
+</table></td></tr>
+<table><tr><td> <em>Deliverable 3: </em> Misc </td></tr><tr><td><em>Status: </em> <img width="100" height="20" src="https://user-images.githubusercontent.com/54863474/211707773-e6aef7cb-d5b2-4053-bbb1-b09fc609041e.png"></td></tr>
+<tr><td><table><tr><td> <em>Sub-Task 1: </em> Add a link to the related pull request of this hw</td></tr>
+<tr><td> <a rel="noreferrer noopener" target="_blank" href="https://github.com/fuzloxp/uf7-IT114-005/pull/4">https://github.com/fuzloxp/uf7-IT114-005/pull/4</a> </td></tr>
+<tr><td> <em>Sub-Task 2: </em> Discuss anything you learned during this lesson/hw or any struggles you had</td></tr>
+<tr><td> <em>Response:</em> <p>I did not learning anything fundamentally new, but I did have to figure<br>out how to work out the if and if else blocks for my<br>second option which took some thinking.<br></p><br></td></tr>
+</table></td></tr>
+<table><tr><td><em>Grading Link: </em><a rel="noreferrer noopener" href="https://learn.ethereallab.app/homework/IT114-005-F23/it114-number-guesser/grade/uf7" target="_blank">Grading</a></td></tr></table>
