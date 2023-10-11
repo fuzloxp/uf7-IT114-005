@@ -82,6 +82,38 @@ public class Server {
             }
             return true;
         }
+        // got help from Sajid for both implementations
+        //uf7-10/10/23-IT114-005
+        //the code below is an implementation of the coin assignment
+        else if (message.trim().equalsIgnoreCase("flip")){
+            int coin = (int)(Math.random()*2);
+            String value = "";
+            if (coin == 0){
+                value = "tails";
+            }
+            else if (coin == 1){
+                value = "heads";
+            }   
+            broadcast(String.format("user %s flipped a coin and got %s",clientId,value), clientId);
+            return true;
+        }   
+        else if (message.startsWith("roll")){
+            try{
+                String diceCount = message.split(" ")[1].split("d")[0];
+                String diceSides = message.split(" ")[1].split("d")[1];
+                int diceTotal = 0;
+                for (int i = 0; i < Integer.parseInt(diceCount); i++){
+                    int roll = (int)(Math.random()*Integer.parseInt(diceSides))+1;
+                    diceTotal += roll;
+                }
+                broadcast(String.format("user %s rolled %sd%s and got %s", clientId, diceCount, diceSides, diceTotal), clientId);
+            }catch(NumberFormatException e){
+                broadcast("invalid input", clientId);
+            }catch(ArrayIndexOutOfBoundsException e){
+                broadcast("invalid input", clientId);
+            }
+            return true;
+        }   
         return false;
     }
     public static void main(String[] args) {
