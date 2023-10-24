@@ -1,4 +1,4 @@
-package CR.Server;
+package CR.server;
 
 import java.util.ArrayList;
 import java.util.Iterator;

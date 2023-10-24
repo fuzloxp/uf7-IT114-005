@@ -1,11 +1,11 @@
-package CR.Server;
+package CR.server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import CR.Common.Payload;
-import CR.Common.PayloadType;
+import CR.common.Payload;
+import CR.common.PayloadType;
 
 /**
  * A server-side representation of a single client
