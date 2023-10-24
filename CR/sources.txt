@@ -1,6 +1,6 @@
-./Client/Client.java
-./Common/Payload.java
-./Common/PayloadType.java
-./Server/Room.java
-./Server/Server.java
-./Server/ServerThread.java
+./client/Client.java
+./common/Payload.java
+./common/PayloadType.java
+./server/Room.java
+./server/Server.java
+./server/ServerThread.java
