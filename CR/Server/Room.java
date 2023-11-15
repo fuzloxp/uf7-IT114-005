@@ -257,6 +257,8 @@ public class Room implements AutoCloseable {
                 message+= i;
             }
         }
+        //uf7-10/10/23-IT114-005
+        //the code below is for the text functions
         if (message.contains("!")){
             String[] tEffects = message.split("");
             message = "";
@@ -278,7 +280,123 @@ public class Room implements AutoCloseable {
                 }
             }
             if (count2%2 == 1){
-                tEffects[indexcount] = "~";
+                tEffects[indexcount] = "!";
+            }
+            for(String i: tEffects){
+                message+= i;
+            }
+        }
+        //uf7-10/10/23-IT114-005
+        //the code below is for the text functions
+        if (message.contains("_")){
+            String[] tEffects = message.split("");
+            message = "";
+            int count = 0;
+            int count2 = 0;
+            int indexcount = 0;
+            for (int i = 0; i < tEffects.length; i++){
+                if (tEffects[i].equals("_")){
+                    count++;
+                    count2++;
+                    if (count == 1){
+                        indexcount = i;
+                        tEffects[i] = "<u>";
+                    }
+                    if (count == 2){
+                        tEffects[i] = "</u>";
+                        count = 0;
+                    }
+                }
+            }
+            if (count2%2 == 1){
+                tEffects[indexcount] = "_";
+            }
+            for(String i: tEffects){
+                message+= i;
+            }
+        }
+        //uf7-10/10/23-IT114-005
+        //the code below is for the text functions
+        if (message.contains("^")){
+            String[] tEffects = message.split("");
+            message = "";
+            int count = 0;
+            int count2 = 0;
+            int indexcount = 0;
+            for (int i = 0; i < tEffects.length; i++){
+                if (tEffects[i].equals("^")){
+                    count++;
+                    count2++;
+                    if (count == 1){
+                        indexcount = i;
+                        tEffects[i] = "<font color=\"red\">";
+                    }
+                    if (count == 2){
+                        tEffects[i] = "</font>";
+                        count = 0;
+                    }
+                }
+            }
+            if (count2%2 == 1){
+                tEffects[indexcount] = "^";
+            }
+            for(String i: tEffects){
+                message+= i;
+            }
+        }
+        //uf7-10/10/23-IT114-005
+        //the code below is for the text functions
+        if (message.contains("%")){
+            String[] tEffects = message.split("");
+            message = "";
+            int count = 0;
+            int count2 = 0;
+            int indexcount = 0;
+            for (int i = 0; i < tEffects.length; i++){
+                if (tEffects[i].equals("%")){
+                    count++;
+                    count2++;
+                    if (count == 1){
+                        indexcount = i;
+                        tEffects[i] = "<font color=\"green\">";
+                    }
+                    if (count == 2){
+                        tEffects[i] = "</font>";
+                        count = 0;
+                    }
+                }
+            }
+            if (count2%2 == 1){
+                tEffects[indexcount] = "%";
+            }
+            for(String i: tEffects){
+                message+= i;
+            }
+        }
+        //uf7-10/10/23-IT114-005
+        //the code below is for the text functions
+        if (message.contains("*")){
+            String[] tEffects = message.split("");
+            message = "";
+            int count = 0;
+            int count2 = 0;
+            int indexcount = 0;
+            for (int i = 0; i < tEffects.length; i++){
+                if (tEffects[i].equals("*")){
+                    count++;
+                    count2++;
+                    if (count == 1){
+                        indexcount = i;
+                        tEffects[i] = "<font color=\"blue\">";
+                    }
+                    if (count == 2){
+                        tEffects[i] = "</font>";
+                        count = 0;
+                    }
+                }
+            }
+            if (count2%2 == 1){
+                tEffects[indexcount] = "*";
             }
             for(String i: tEffects){
                 message+= i;
@@ -293,7 +411,6 @@ public class Room implements AutoCloseable {
                 handleDisconnect(iter, client);
             }
         }
-    }
     }
 
     protected synchronized void sendConnectionStatus(ServerThread sender, boolean isConnected) {

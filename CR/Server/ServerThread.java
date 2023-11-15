@@ -79,20 +79,23 @@ public class ServerThread extends Thread {
 
     // send methods
 
+        
     public boolean sendReadyStatus(long clientId) {
         Payload p = new Payload();
         p.setPayloadType(PayloadType.READY);
         p.setClientId(clientId);
         return send(p);
     }
-
+        //uf7-10/10/23-IT114-005
+        //This allows you to give your room a name
     public boolean sendRoomName(String name) {
         Payload p = new Payload();
         p.setPayloadType(PayloadType.JOIN_ROOM);
         p.setMessage(name);
         return send(p);
     }
-
+        //uf7-10/10/23-IT114-005
+        //This allows each client to get a list of the rooms
     public boolean sendRoomsList(String[] rooms, String message) {
         RoomResultPayload payload = new RoomResultPayload();
         payload.setRooms(rooms);
@@ -101,7 +104,8 @@ public class ServerThread extends Thread {
         }
         return send(payload);
     }
-
+        //uf7-10/10/23-IT114-005
+        //This allows for each client to get data for which clients are active
     public boolean sendExistingClient(long clientId, String clientName) {
         Payload p = new Payload();
         p.setPayloadType(PayloadType.SYNC_CLIENT);
@@ -109,20 +113,23 @@ public class ServerThread extends Thread {
         p.setClientName(clientName);
         return send(p);
     }
-
+        //uf7-10/10/23-IT114-005
+        //This allows for each client to get a reseted user list
     public boolean sendResetUserList() {
         Payload p = new Payload();
         p.setPayloadType(PayloadType.RESET_USER_LIST);
         return send(p);
     }
-
+        //uf7-10/10/23-IT114-005
+        //This allows the server to identify clients
     public boolean sendClientId(long id) {
         Payload p = new Payload();
         p.setPayloadType(PayloadType.CLIENT_ID);
         p.setClientId(id);
         return send(p);
     }
-
+        //uf7-10/10/23-IT114-005
+        //The allows the server to send messages to the clients
     public boolean sendMessage(long clientId, String message) {
         Payload p = new Payload();
         p.setPayloadType(PayloadType.MESSAGE);
@@ -130,7 +137,8 @@ public class ServerThread extends Thread {
         p.setMessage(message);
         return send(p);
     }
-
+        //uf7-10/10/23-IT114-005
+        //This allows the server to show who is connected
     public boolean sendConnectionStatus(long clientId, String who, boolean isConnected) {
         Payload p = new Payload();
         p.setPayloadType(isConnected ? PayloadType.CONNECT : PayloadType.DISCONNECT);
@@ -139,7 +147,6 @@ public class ServerThread extends Thread {
         p.setMessage(String.format("%s the room %s", (isConnected ? "Joined" : "Left"), currentRoom.getName()));
         return send(p);
     }
-
     private boolean send(Payload payload) {
         try {
             logger.log(Level.FINE, "Outgoing payload: " + payload);
