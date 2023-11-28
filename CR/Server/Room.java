@@ -134,16 +134,18 @@ public class Room implements AutoCloseable {
                     //got help from Sajid and Danny for both server-side functions
                     //uf7-10/10/23-IT114-005
                     //the code below is for the coin and dice server-side functions
+                    //code for flip and roll features along with their 
+                    //uf7-11/27/23-IT114-005
                     case FLIP:
                         int coin = (int)(Math.random()*2);
                         String value = "";
                         if (coin == 0){
-                            value = "tails";
+                            value = "~tails~";
                         }
                         else if (coin == 1){
-                            value = "heads";
+                            value = "~heads~";
                         }
-                        sendMessage(client, String.format("user %s flipped a coin and got %s",client,value));
+                        sendMessage(client, String.format("~user %s flipped a coin and got %s~",client.getClientName(),"~"+value+"~"));
                     case ROLL:
                         if(comm2[1].contains("d")){
                             try{
@@ -154,15 +156,17 @@ public class Room implements AutoCloseable {
                                     int roll = (int)(Math.random()*Integer.parseInt(diceSides))+1;
                                     diceTotal += roll;
                                 }
-                                sendMessage(client, String.format("user %s rolled %sd%s and got %s", client, diceCount, diceSides, diceTotal));
+                                
+                                sendMessage(client, String.format("<b>user %s rolled %sd%s and got %s", client.getClientName(), diceCount, diceSides, diceTotal + "</b>"));
                             }catch(NumberFormatException e){
-                                sendMessage(client, "invalid input");
+                                sendMessage(client, "~invalid input~");
                             }catch(ArrayIndexOutOfBoundsException e){
-                                sendMessage(client, "invalid input");;
+                                sendMessage(client, "~invalid input~");
                             }
+                            break;
                         }else{
                             int result = (int)(Math.random()*Integer.parseInt(comm2[1]))+1;
-                            sendMessage(client, "Rolled a random number between 1 and " + comm2[1] + " and got: " + result);
+                            sendMessage(client, "~Rolled a random number between 1 and ~" + "~"+comm2[1]+"~" + "~ and got: ~" + "~"+result+"~");
                             break;
                         }
                     default:
@@ -174,6 +178,17 @@ public class Room implements AutoCloseable {
             e.printStackTrace();
         }
         return wasCommand;
+    }
+
+    //method for whisper feature
+    //got help from danny
+    //uf7-11/27/23-IT114-005
+    private ServerThread findUser(String username){
+        for (ServerThread user : clients) {
+            if(user.getClientName().equals(username))
+                return user;
+        }
+        return null;
     }
 
     // Command helper methods
@@ -402,10 +417,34 @@ public class Room implements AutoCloseable {
                 message+= i;
             }
         }
+        //code for whisper feature
+        //got help from danny
+        //uf7-11/27/23-IT114-005
+        if (message.contains("@")){
+            String[] words = message.split("\\s+");
+            for(String word : words){
+                if (word.startsWith("@")){
+                    String whisperName = word.substring(1);
+                    ServerThread targetUser = findUser(whisperName);
+
+                    if (targetUser != null){
+                        String senderMessage = "<font color=\"blue\">You whispered to " + targetUser.getClientName() + ":" + message.substring(whisperName.length()+1) + "</font>";
+                        String receiverMessage = "<font color=\"blue\">Whispered to you: " + message.substring(whisperName.length()+1) + "</font>";
+                        targetUser.sendMessage(sender.getClientId(), receiverMessage);
+                        sender.sendMessage(sender.getClientId(), senderMessage);
+                        return;
+                    } 
+                }
+            }
+        }
         long from = sender == null ? Constants.DEFAULT_CLIENT_ID : sender.getClientId();
         Iterator<ServerThread> iter = clients.iterator();
         while (iter.hasNext()) {
             ServerThread client = iter.next();
+            if(client.isMuted(sender.getClientName())){
+                continue;
+            }
+
             boolean messageSent = client.sendMessage(from, message);
             if (!messageSent) {
                 handleDisconnect(iter, client);
