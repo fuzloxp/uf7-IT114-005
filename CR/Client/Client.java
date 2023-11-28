@@ -24,6 +24,49 @@ public enum Client {
     private String clientName = "";
     private static Logger logger = Logger.getLogger(Client.class.getName());
     private static IClientEvents events;
+    //added these variables for the mute/unmute function
+    private final static String COMMAND = "`";
+    private final static String MUTE = "mute";
+    private final static String UNMUTE = "unmute";
+    //code for mute/unmute feature
+    //got help from danny
+    //uf7-11/27/23-IT114-005
+    public void muteUser(String name) throws IOException{
+        Payload p = new Payload();
+        p.setPayloadType(PayloadType.MUTE);
+        p.setClientName(name);
+        out.writeObject(p);
+    }
+    public void unmuteUser(String name) throws IOException{
+        Payload p = new Payload();
+        p.setPayloadType(PayloadType.UNMUTE);
+        p.setClientName(name);
+        out.writeObject(p);
+    }
+    private boolean processMute(String command){
+        boolean isCommand = false;
+        if(command.startsWith(COMMAND)){
+            try{
+                isCommand = true;
+                String check = command.substring(1).trim().split(" ")[0];
+                String name = command.substring(1).trim().split(" ")[1];
+                switch(check){
+                    case MUTE:
+                        this.muteUser(name);
+                        break;
+                    case UNMUTE:
+                        this.unmuteUser(name);
+                        break;
+                    default:
+                        isCommand = false;
+                        break;
+                }
+            } catch(Exception e){
+                System.out.print("Invalid format");
+            }
+        }
+        return isCommand;
+    }
 
     public boolean isConnected() {
         if (server == null) {
@@ -102,11 +145,13 @@ public enum Client {
     }
 
     public void sendMessage(String message) throws IOException, NullPointerException {
+        if(!processMute(message)){
         Payload p = new Payload();
         p.setPayloadType(PayloadType.MESSAGE);
         p.setMessage(message);
         p.setClientName(clientName);
         send(p);
+        }
     }
 
     // keep this private as utility methods should be the only Payload creators
@@ -181,6 +226,11 @@ public enum Client {
             case JOIN_ROOM:
                 events.onRoomJoin(p.getMessage());
                 break;
+            case MUTE:
+                events.onMessageReceive(p.getClientId(), "<font color =\"red\">" + p.getClientName() + " has been muted</font>");
+                break;
+            case UNMUTE:
+                events.onMessageReceive(p.getClientId(), "<font color =\"red\">" + p.getClientName() + " has been unmuted</font>");
             default:
                 logger.log(Level.WARNING, "Unhandled payload type");
                 break;

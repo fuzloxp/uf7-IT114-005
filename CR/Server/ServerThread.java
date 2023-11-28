@@ -1,5 +1,6 @@
 package CR.server;
 
+import java.util.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -24,6 +25,31 @@ public class ServerThread extends Thread {
     private Room currentRoom;
     private static Logger logger = Logger.getLogger(ServerThread.class.getName());
     private long myId;
+    private List<String> muteList = new ArrayList<String>();
+
+    //code for mute/unmute feature
+    //got help from danny
+    //uf7-11/27/23-IT114-005
+    public boolean sendMuteUser(String name){
+        Payload p = new Payload();
+        p.setPayloadType(PayloadType.MUTE);
+        p.setClientName(name);
+        return send(p);
+    }
+    public boolean sendUnmuteUser(String name){
+        Payload p = new Payload();
+        p.setPayloadType(PayloadType.UNMUTE);
+        p.setClientName(name);
+        return send(p);
+    }
+    public boolean isMuted(String name){
+        for(String i: muteList){
+            if(i.equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void setClientId(long id) {
         myId = id;
@@ -211,6 +237,15 @@ public class ServerThread extends Thread {
             case JOIN_ROOM:
                 Room.joinRoom(p.getMessage().trim(), this);
                 break;
+            //two additional cases for the mute/unmute function
+            case MUTE:
+                    muteList.add(p.getClientName());
+                    sendMuteUser(p.getClientName());
+                break;
+            case UNMUTE:
+                    muteList.remove(p.getClientName());
+                    sendUnmuteUser(p.getClientName());
+                break;    
             default:
                 break;
 

@@ -20,7 +20,7 @@ public class ConnectionPanel extends JPanel {
 
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-        // add host info
+        // addhost info
         JLabel hostLabel = new JLabel("Host:");
         JTextField hostValue = new JTextField("127.0.0.1");
         JLabel hostError = new JLabel();
