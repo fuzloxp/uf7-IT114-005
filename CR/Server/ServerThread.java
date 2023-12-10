@@ -1,9 +1,13 @@
 package CR.server;
 
 import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +30,7 @@ public class ServerThread extends Thread {
     private static Logger logger = Logger.getLogger(ServerThread.class.getName());
     private long myId;
     private List<String> muteList = new ArrayList<String>();
+    private String mutePersistList;
 
     //code for mute/unmute feature
     //got help from danny
@@ -49,6 +54,30 @@ public class ServerThread extends Thread {
             }
         }
         return false;
+    }
+    //two new methods that create/update a text file containing the muted usernames and that use the same file upon server start-up respectively
+    //got help from danny
+    //uf7-12/08/23-IT114-005
+    public void updateMuteList() {
+        try(PrintWriter writer = new PrintWriter(new FileWriter(mutePersistList))) {
+            for(String mutedUser : muteList) {
+                writer.println(mutedUser);
+            }
+            writer.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadMuteList() {
+        try(BufferedReader reader = new BufferedReader(new FileReader(mutePersistList))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                muteList.add(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setClientId(long id) {
@@ -215,6 +244,9 @@ public class ServerThread extends Thread {
         switch (p.getPayloadType()) {
             case CONNECT:
                 setClientName(p.getClientName());
+                //these next two lines make use of the mutelist for the persisting mute feature with the help of the loadMuteList method within this file
+                mutePersistList = "C:\\Users\\Fuzai\\IT114\\" + p.getClientName() + ".txt";
+                loadMuteList();
                 break;
             case DISCONNECT:
                 Room.disconnectClient(this, getCurrentRoom());
@@ -238,13 +270,28 @@ public class ServerThread extends Thread {
                 Room.joinRoom(p.getMessage().trim(), this);
                 break;
             //two additional cases for the mute/unmute function
+            //added code for both mute persisting feature and so clients receive a message when muted/unmuted
+            //got help from danny
+            //uf7-12/08/23-IT114-005
             case MUTE:
                     muteList.add(p.getClientName());
+                    updateMuteList();
                     sendMuteUser(p.getClientName());
+                    Room mroom = getCurrentRoom();
+                    if(mroom!=null){
+                        ServerThread mutedUser = mroom.findMute(p.getClientName());
+                        mutedUser.sendMessage(p.getClientId(), "<font color=\"red\">You have been muted by " + getClientName() + "</font>");
+                    }
                 break;
             case UNMUTE:
                     muteList.remove(p.getClientName());
+                    updateMuteList();
                     sendUnmuteUser(p.getClientName());
+                    mroom = getCurrentRoom();
+                    if(mroom!=null){
+                        ServerThread mutedUser = mroom.findMute(p.getClientName());
+                        mutedUser.sendMessage(p.getClientId(), "<font color=\"red\">You have been unmuted by " + getClientName() + "</font>");
+                    }
                 break;    
             default:
                 break;
