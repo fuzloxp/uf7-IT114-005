@@ -131,11 +131,6 @@ public class Room implements AutoCloseable {
                     case LOGOFF:
                         Room.disconnectClient(client, this);
                         break;
-                    //got help from Sajid and Danny for both server-side functions
-                    //uf7-10/10/23-IT114-005
-                    //the code below is for the coin and dice server-side functions
-                    //code for flip and roll features along with their 
-                    //uf7-11/27/23-IT114-005
                     case FLIP:
                         int coin = (int)(Math.random()*2);
                         String value = "";
@@ -187,6 +182,16 @@ public class Room implements AutoCloseable {
         for (ServerThread user : clients) {
             if(user.getClientName().equals(username))
                 return user;
+        }
+        return null;
+    }
+
+    //room method that allows for us to find the username that is called for the persisting mute feature
+    public ServerThread findMute(String username) {
+        for(ServerThread user : clients) {
+            if(user.getClientName().equals(username)) {
+                return user;
+            }
         }
         return null;
     }

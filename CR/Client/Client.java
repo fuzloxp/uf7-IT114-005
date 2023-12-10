@@ -154,6 +154,8 @@ public enum Client {
         }
     }
 
+    
+
     // keep this private as utility methods should be the only Payload creators
     private void send(Payload p) throws IOException, NullPointerException {
         logger.log(Level.FINE, "Sending Payload: " + p);
@@ -231,6 +233,7 @@ public enum Client {
                 break;
             case UNMUTE:
                 events.onMessageReceive(p.getClientId(), "<font color =\"red\">" + p.getClientName() + " has been unmuted</font>");
+                break;
             default:
                 logger.log(Level.WARNING, "Unhandled payload type");
                 break;

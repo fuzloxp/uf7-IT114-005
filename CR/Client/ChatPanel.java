@@ -9,6 +9,7 @@ import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,7 +77,9 @@ public class ChatPanel extends JPanel {
 
             }
 
+
         });
+
         button.addActionListener((event) -> {
             try {
                 String text = textValue.getText().trim();
@@ -97,6 +100,14 @@ public class ChatPanel extends JPanel {
         });
         chatArea = content;
         input.add(button);
+
+        
+        JButton button2 = new JButton("Export Chat");
+        button2.addActionListener((event) ->{
+                chatExport();
+        });
+        input.add(button2);
+
         userListPanel = new UserListPanel(controls);
         this.add(userListPanel, BorderLayout.EAST);
         this.add(input, BorderLayout.SOUTH);
@@ -168,5 +179,17 @@ public class ChatPanel extends JPanel {
         // scroll down on new message
         JScrollBar vertical = ((JScrollPane) chatArea.getParent().getParent()).getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
+    }
+
+    public void chatExport(){
+        Component[] chathis = chatArea.getComponents();
+        try(FileWriter chatfile = new FileWriter("chathistory.html")){
+            for(Component i :chathis){
+                chatfile.write("<br>" + ((JEditorPane) i).getText() + "</br>");
+            }
+        Client.INSTANCE.sendMessage("Export successful");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
