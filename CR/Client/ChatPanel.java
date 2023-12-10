@@ -192,4 +192,8 @@ public class ChatPanel extends JPanel {
             e.printStackTrace();
         }
     }
+
+    public void recentUser(long clientId){
+        userListPanel.recentUser(clientId);
+    }
 }
