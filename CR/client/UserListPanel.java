@@ -62,6 +62,18 @@ public class UserListPanel extends JPanel {
 
         });
     }
+    protected void recentUser(long clientId) {
+        Component [] cs = userListArea.getComponents();
+        for (Component c : cs) {
+            if (c.getName( ).equals(clientId + "")) {
+                    c.setForeground(Color.RED);
+                break;
+            }
+            else{
+                c.setForeground(Color.BLACK);
+            }
+        }
+    }
 
     protected void addUserListItem(long clientId, String clientName) {
         logger.log(Level.INFO, "Adding user to list: " + clientName);
@@ -101,17 +113,6 @@ public class UserListPanel extends JPanel {
         }
     }
 
+
     
-    protected void recentUser(long clientId) {
-        Component[] cs = userListArea.getComponents();
-        for (Component c : cs) {
-            if (c.getName().equals(clientId + "")) {
-                    c.setForeground(Color.RED);
-                break;
-            }
-            else {
-                c.setForeground(Color.BLACK);
-            }
-        }
-    }
 }
