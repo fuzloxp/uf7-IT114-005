@@ -212,6 +212,7 @@ public enum Client {
                 break;
             case MESSAGE:
                 events.onMessageReceive(p.getClientId(), p.getMessage());
+                events.recentUser(p.getClientId());
                 break;
             case CLIENT_ID:
                 events.onReceiveClientId(p.getClientId());

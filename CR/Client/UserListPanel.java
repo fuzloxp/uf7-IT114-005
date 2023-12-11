@@ -1,7 +1,7 @@
 package CR.client;
 
 import java.awt.BorderLayout;
-
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ContainerEvent;
@@ -61,6 +61,18 @@ public class UserListPanel extends JPanel {
             }
 
         });
+    }
+    protected void recentUser(long clientId) {
+        Component [] cs = userListArea.getComponents();
+        for (Component c : cs) {
+            if (c.getName( ).equals(clientId + "")) {
+                    c.setForeground(Color.RED);
+                break;
+            }
+            else{
+                c.setForeground(Color.BLACK);
+            }
+        }
     }
 
     protected void addUserListItem(long clientId, String clientName) {

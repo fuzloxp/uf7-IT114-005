@@ -161,6 +161,9 @@ public class ChatPanel extends JPanel {
     public void clearUserList(){
         userListPanel.clearUserList();
     }
+    public void recentUser(long clientId){
+        userListPanel.recentUser(clientId);
+    }
     public void addText(String text) {
         JPanel content = chatArea;
         // add message
