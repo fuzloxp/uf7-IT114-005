@@ -262,7 +262,7 @@ public class ClientUI extends JFrame implements IClientEvents, ICardControls {
     public void chatH(){
         chatPanel.chatExport();
     }
-    
+    //method for highlight feature
     @Override
     public void recentUser(long clientId){
         chatPanel.recentUser(clientId);
