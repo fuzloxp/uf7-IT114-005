@@ -180,7 +180,7 @@ public class ChatPanel extends JPanel {
         JScrollBar vertical = ((JScrollPane) chatArea.getParent().getParent()).getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
     }
-
+    //this is the method for the chat export feature
     public void chatExport(){
         Component[] chathis = chatArea.getComponents();
         try(FileWriter chatfile = new FileWriter("chathistory.html")){
