@@ -184,6 +184,7 @@ public class ChatPanel extends JPanel {
         vertical.setValue(vertical.getMaximum());
     }
     //this is the method for the chat export feature
+    //danny helped me
     public void chatExport(){
         Component[] chathis = chatArea.getComponents();
         try(FileWriter chatfile = new FileWriter("chathistory.html")){
