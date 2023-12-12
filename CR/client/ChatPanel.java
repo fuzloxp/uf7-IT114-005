@@ -183,7 +183,8 @@ public class ChatPanel extends JPanel {
         JScrollBar vertical = ((JScrollPane) chatArea.getParent().getParent()).getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());
     }
-
+    //this is the method for the chat export feature
+    //danny helped me
     public void chatExport(){
         Component[] chathis = chatArea.getComponents();
         try(FileWriter chatfile = new FileWriter("chathistory.html")){
@@ -195,4 +196,5 @@ public class ChatPanel extends JPanel {
             e.printStackTrace();
         }
     }
+    
 }
