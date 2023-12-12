@@ -273,7 +273,7 @@ public class ServerThread extends Thread {
             //two additional cases for the mute/unmute function
             //added code for both mute persisting feature and so clients receive a message when muted/unmuted
             //got help from danny
-            //uf7-12/13/23-IT114-005
+            //uf7-12/13/23-IT114-005.
             case MUTE:
                     muteList.add(p.getClientName());
                     updateMuteList();
